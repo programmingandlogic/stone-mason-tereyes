@@ -13,49 +13,64 @@ import stanford.karel.*;
 public class StoneMasonKarel extends SuperKarel {
 
 	public void run() {
-		buildUp();
-		crossArch();
-		buildDown();
-		crossArch();
-		buildUp();
-		crossArch();
-		buildDown();
+			build();
+			cross();
+			build();
+			botCross();
+			build();
+			cross();
+			build();
+		
+
 		
 	}
-	private void buildUp() {
-		turnLeft();
-		if (noBeepersPresent()){
-			putBeeper();
+	/*
+	 * puts beepers if no beepers are present, but only on the line 
+	 */
+		private void build() {
+			if (noBeepersPresent()){
+				putBeeper();
+			}
+			if (facingEast()){
+				turnLeft();
+				for (int i = 0; i < 4; i++){
+					move();
+					if (noBeepersPresent()){
+						putBeeper();
+					}
+				}
+				for (int i = 0; i < 1; i++){
+					turnRight();
+				}
+			}
+			if (facingSouth()){
+				for (int i = 0; i < 4; i++){
+					move();
+					if (noBeepersPresent()){
+						putBeeper();
+					}
+				}
+				for (int i = 0; i < 1; i++){
+					turnLeft();
+				}
+			}
 		}
-		for (int i = 0; i < 4; i++){
-			move();
-		}
-			
-	}
-	private void crossArch() {
-		if (facingNorth()){
+		/*
+		 * crosses arch from the top
+		 */
+		private void cross() {
+			for (int i = 0; i < 4; i++){
+				move();
+			}
 			turnRight();
-		for (int i = 0; i < 4; i++){
-			move();
-			}
 		}
-		if (facingSouth()){
-			turnLeft();
-		for (int i = 0; i < 4; i++){
-			move();
-			}
-		}
-
-	}
-	private void buildDown(){
-		turnLeft();
-		if (noBeepersPresent()){
-			putBeeper();
-		}
-		if (frontIsClear()){
-		for (int i = 0; i < 4; i++){
+		/*
+		 * crosses arch from the bottom
+		 */
+		private void botCross(){
+			for (int i = 0; i < 4; i++){
 				move();
 			}
 		}
-	}
+
 }
